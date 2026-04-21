@@ -53,4 +53,13 @@ return [
     'quantity'                          => 'Quantity',
     'add-to-cart'                       => 'Add to Cart',
     'buy-now'                           => 'Buy Now',
+    'product-description'               => 'Product Description',
+    'product-reviews'                   => 'Product Reviews',
+    'customer-reviews'                  => 'Customer Reviews',
+    'write-a-review'                    => 'Write a Review',
+    'submit-review'                     => 'Submit Review',
+    'view-cart'                         => 'View Cart',
+    'checkout'                          => 'Checkout',
+    'cart-subtotal'                     => 'Cart Subtotal',
+    'remove'                            => 'Remove',
 ];

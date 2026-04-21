@@ -53,4 +53,13 @@ return [
     'quantity'                          => 'الكمية',
     'add-to-cart'                       => 'إضافة إلى السلة',
     'buy-now'                           => 'اشتري الآن',
+    'product-description'               => 'وصف المنتج',
+    'product-reviews'                   => 'تقييمات المنتج',
+    'customer-reviews'                  => 'تقييمات العملاء',
+    'write-a-review'                    => 'اكتب مراجعة',
+    'submit-review'                     => 'إرسال المراجعة',
+    'view-cart'                         => 'عرض العربة',
+    'checkout'                          => 'الدفع',
+    'cart-subtotal'                     => 'المجموع',
+    'remove'                            => 'إزالة',
 ];
