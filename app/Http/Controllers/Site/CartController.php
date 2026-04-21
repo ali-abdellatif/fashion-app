@@ -127,6 +127,6 @@ class CartController extends Controller
 
     private function authorizeItem(CartItem $item): void
     {
-        abort_if($item->cart->customer_id !== auth('customer')->id(), 403);
+        abort_if((int) $item->cart->customer_id !== (int) auth('customer')->id(), 403);
     }
 }

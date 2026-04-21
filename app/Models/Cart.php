@@ -8,6 +8,8 @@ class Cart extends Model
 {
     protected $fillable = ['customer_id', 'note'];
 
+    protected $casts = ['customer_id' => 'integer'];
+
     public function customer()
     {
         return $this->belongsTo(Customer::class);
