@@ -94,8 +94,8 @@ class CartController extends Controller
 
         $cart = $item->cart->load('items');
         return response()->json([
-            'line_total' => number_format($item->fresh()->lineTotal(), 2),
-            'subtotal'   => number_format($cart->subtotal(), 2),
+            'line_total' => $item->fresh()->lineTotal(),
+            'subtotal'   => $cart->subtotal(),
             'count'      => $cart->totalQuantity(),
         ]);
     }
@@ -108,9 +108,10 @@ class CartController extends Controller
         $cart = $item->cart->load('items');
         $item->delete();
 
+        $freshCart = $cart->fresh();
         return response()->json([
-            'subtotal' => number_format($cart->fresh()->subtotal(), 2),
-            'count'    => $cart->fresh()->totalQuantity(),
+            'subtotal' => $freshCart->subtotal(),
+            'count'    => $freshCart->totalQuantity(),
         ]);
     }
 

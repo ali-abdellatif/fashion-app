@@ -91,13 +91,13 @@
                         <td>
                             <div class="cart-quantity">
                                 <div class="wg-quantity">
-                                    <span class="btn-quantity minus-btn cart-qty-minus"
+                                    <span class="btn-quantity cart-qty-minus"
                                           data-item="{{ $item->id }}"
                                           data-url="{{ route('cart.update', $item->id) }}">-</span>
                                     <input type="text" class="cart-qty-input" value="{{ $item->quantity }}" min="1"
                                            data-item="{{ $item->id }}"
                                            data-url="{{ route('cart.update', $item->id) }}">
-                                    <span class="btn-quantity plus-btn cart-qty-plus"
+                                    <span class="btn-quantity cart-qty-plus"
                                           data-item="{{ $item->id }}"
                                           data-url="{{ route('cart.update', $item->id) }}">+</span>
                                 </div>
@@ -151,7 +151,7 @@
 
                     <div class="d-flex justify-content-between mb-4">
                         <span class="fw-6 fs-16">{{ __('site.total') }}</span>
-                        <span class="fw-6 fs-16">
+                        <span class="fw-6 fs-16 cart-grand-total" data-shipping="{{ $shippingPrice }}">
                             {{ number_format($cart->subtotal() + $shippingPrice, 2) }} EGP
                         </span>
                     </div>
@@ -182,11 +182,24 @@
 (function () {
     var csrf = '{{ csrf_token() }}';
 
+    var grandTotalEl = document.querySelector('.cart-grand-total');
+    var shipping     = grandTotalEl ? parseFloat(grandTotalEl.dataset.shipping) : 0;
+
     function updateBadge(count) {
         document.querySelectorAll('.cart-count-badge').forEach(function (el) {
             el.textContent = count;
             el.style.display = count > 0 ? '' : 'none';
         });
+    }
+
+    function fmt(num) {
+        return parseFloat(num).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' EGP';
+    }
+
+    function updateTotals(subtotal) {
+        subtotal = parseFloat(subtotal);
+        document.querySelector('.cart-subtotal').textContent = fmt(subtotal);
+        if (grandTotalEl) grandTotalEl.textContent           = fmt(subtotal + shipping);
     }
 
     function changeQty(itemId, url, delta) {
@@ -205,8 +218,8 @@
         })
         .then(r => r.json())
         .then(function (data) {
-            wrap.querySelector('.item-line-total').textContent = data.line_total + ' EGP';
-            document.querySelector('.cart-subtotal').textContent = data.subtotal + ' EGP';
+            wrap.querySelector('.item-line-total').textContent = fmt(data.line_total);
+            updateTotals(data.subtotal);
             document.querySelector('.cart-total-qty').textContent = data.count;
             updateBadge(data.count);
         });
@@ -226,7 +239,7 @@
             .then(r => r.json())
             .then(function (data) {
                 document.querySelector('[data-item-id="' + rem.dataset.item + '"]')?.remove();
-                document.querySelector('.cart-subtotal').textContent = data.subtotal + ' EGP';
+                updateTotals(data.subtotal);
                 document.querySelector('.cart-total-qty').textContent = data.count;
                 updateBadge(data.count);
                 if (data.count === 0) location.reload();
