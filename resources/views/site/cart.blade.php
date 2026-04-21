@@ -1,7 +1,16 @@
 @extends('app')
 @section('title', __('site.shopping-cart'))
 @section('content')
-<div class="tf-breadcrumb" style="padding-top: 80px;">
+
+<!-- page-title -->
+        <div class="tf-page-title">
+            <div class="container-full">
+                <div class="heading text-center">{{ __('site.shopping-cart') }}</div>
+            </div>
+        </div>
+        <!-- /page-title -->
+
+        <div class="tf-breadcrumb" style="padding-top: 80px;">
     <div class="container">
         <div class="tf-breadcrumb-wrap d-flex justify-content-between flex-wrap align-items-center">
             <div class="tf-breadcrumb-list">
@@ -29,38 +38,58 @@
             <div class="col-xl-8 col-lg-7">
                 <div class="tf-cart-item-message mb-3">
                     <i class="icon icon-lightning me-2"></i>
-                    {{ __('You have') }} <span class="fw-6 cart-total-qty">{{ $cart->totalQuantity() }}</span> {{ __('item(s) in your cart') }}
+                    {{ __('site.you-have') }} <span class="fw-6 cart-total-qty">{{ $cart->totalQuantity() }}</span> {{ __('site.item(s)-in-your-cart') }}
                 </div>
 
-                <div class="tf-page-cart-wrap" id="cart-items-list">
+                <table class="tf-table-page-cart" id="cart-items-list">
+                    <thead>
+                        <tr>
+                            <th>{{ __('site.product') }}</th>
+                            <th>{{ __('site.price') }}</th>
+                            <th>{{ __('site.quantity') }}</th>
+                            <th>{{ __('site.total') }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                     @foreach($cart->items as $item)
                     @php $product = $item->product; @endphp
-                    <div class="tf-cart-item file-delete" data-item-id="{{ $item->id }}">
-                        <div class="tf-cart-item-image">
-                            <a href="{{ route('product.show', $product->slug) }}">
-                                <img src="{{ $item->color?->url ?? $product->primaryImage()?->url }}" alt="{{ $product->name }}" style="width:80px; height:120px; object-fit:cover; border-radius:4px;">
-                            </a>
-                        </div>
-                        <div class="tf-cart-item-info">
-                            <div class="tf-cart-item-title">
-                                <a href="{{ route('product.show', $product->slug) }}" class="fw-6 link">{{ $product->name }}</a>
-                            </div>
-                            @if($item->color || $item->size)
-                            <div class="tf-cart-item-variant text-muted fs-14">
-                                @if($item->color)<span>{{ $item->color->color_name }}</span>@endif
-                                @if($item->color && $item->size) / @endif
-                                @if($item->size)<span>{{ $item->size->name }}</span>@endif
-                            </div>
-                            @endif
-                            <div class="tf-cart-item-price-wrap">
-                                <div class="tf-cart-item-price fw-6 item-line-total">
-                                    {{ number_format($item->lineTotal(), 2) }} EGP
+                    <tr class="tf-cart-item" data-item-id="{{ $item->id }}">
+                        {{-- Product --}}
+                        <td>
+                            <div class="tf-cart-item_product">
+                                <a href="{{ route('product.show', $product->slug) }}" class="img-box">
+                                    <img src="{{ $item->color?->url ?? $product->primaryImage()?->url }}"
+                                         alt="{{ $product->name }}"
+                                         style="width:80px; height:110px; object-fit:cover;">
+                                </a>
+                                <div class="cart-info">
+                                    <a href="{{ route('product.show', $product->slug) }}" class="cart-title link fw-6">{{ $product->name }}</a>
+                                    @if($item->color || $item->size)
+                                    <span class="cart-meta-variant">
+                                        @if($item->color){{ $item->color->color_name }}@endif
+                                        @if($item->color && $item->size) / @endif
+                                        @if($item->size){{ $item->size->name }}@endif
+                                    </span>
+                                    @endif
+                                    <a class="remove-cart cart-remove-btn" href="#"
+                                       data-item="{{ $item->id }}"
+                                       data-url="{{ route('cart.remove', $item->id) }}">
+                                        {{ __('site.remove') }}
+                                    </a>
                                 </div>
-                                <div class="text-muted fs-13">
-                                    {{ number_format($item->unitPrice(), 2) }} EGP {{ __('each') }}
-                                </div>
                             </div>
-                            <div class="tf-cart-item-quantity d-flex align-items-center gap-3 mt-2">
+                        </td>
+
+                        {{-- Unit price --}}
+                        <td>
+                            <div class="cart-price">
+                                {{ number_format($item->unitPrice(), 2) }} EGP
+                            </div>
+                        </td>
+
+                        {{-- Quantity --}}
+                        <td>
+                            <div class="cart-quantity">
                                 <div class="wg-quantity">
                                     <span class="btn-quantity minus-btn cart-qty-minus"
                                           data-item="{{ $item->id }}"
@@ -72,24 +101,27 @@
                                           data-item="{{ $item->id }}"
                                           data-url="{{ route('cart.update', $item->id) }}">+</span>
                                 </div>
-                                <a class="tf-cart-item-remove cart-remove-btn link" href="#"
-                                   data-item="{{ $item->id }}"
-                                   data-url="{{ route('cart.remove', $item->id) }}">
-                                    {{ __('Remove') }}
-                                </a>
                             </div>
-                        </div>
-                    </div>
+                        </td>
+
+                        {{-- Line total --}}
+                        <td>
+                            <div class="cart-total item-line-total">
+                                {{ number_format($item->lineTotal(), 2) }} EGP
+                            </div>
+                        </td>
+                    </tr>
                     @endforeach
-                </div>
+                    </tbody>
+                </table>
 
                 <div class="d-flex justify-content-between align-items-center mt-4 flex-wrap gap-3">
                     <a href="{{ route('home') }}" class="tf-btn btn-outline radius-3 link">
-                        <i class="icon icon-arrow-left me-2"></i> {{ __('Continue Shopping') }}
+                        <i class="icon me-2"></i> {{ __('site.continue-shopping') }}
                     </a>
                     <button class="tf-btn btn-outline radius-3" id="cart-clear-btn"
                             data-url="{{ route('cart.clear') }}">
-                        {{ __('Clear Cart') }}
+                        {{ __('site.clear-cart') }}
                     </button>
                 </div>
             </div>
@@ -97,10 +129,10 @@
             {{-- Summary --}}
             <div class="col-xl-4 col-lg-5 mt-5 mt-lg-0">
                 <div class="tf-cart-totals-discounts p-4" style="border:1px solid #eee; border-radius:8px;">
-                    <h6 class="mb-4">{{ __('Order Summary') }}</h6>
+                    <h6 class="mb-4">{{ __('site.order-summary') }}</h6>
 
                     <div class="d-flex justify-content-between mb-2">
-                        <span>{{ __('Subtotal') }}</span>
+                        <span>{{ __('site.subtotal') }}</span>
                         <span class="fw-6 cart-subtotal">{{ number_format($cart->subtotal(), 2) }} EGP</span>
                     </div>
 
@@ -110,7 +142,7 @@
                     @endphp
                     @if($defaultAddr?->governorate)
                     <div class="d-flex justify-content-between mb-2">
-                        <span>{{ __('Shipping') }} ({{ $defaultAddr->governorate->name }})</span>
+                        <span>{{ __('site.shipping') }} ({{ $defaultAddr->governorate->name }})</span>
                         <span class="fw-6">{{ number_format($shippingPrice, 2) }} EGP</span>
                     </div>
                     @endif
@@ -118,23 +150,23 @@
                     <div class="tf-mini-cart-line my-3"></div>
 
                     <div class="d-flex justify-content-between mb-4">
-                        <span class="fw-6 fs-16">{{ __('Total') }}</span>
+                        <span class="fw-6 fs-16">{{ __('site.total') }}</span>
                         <span class="fw-6 fs-16">
                             {{ number_format($cart->subtotal() + $shippingPrice, 2) }} EGP
                         </span>
                     </div>
 
                     <a href="#" class="tf-btn btn-fill animate-hover-btn radius-3 w-100 justify-content-center">
-                        <span>{{ __('Proceed to Checkout') }}</span>
+                        <span>{{ __('site.proceed-to-checkout') }}</span>
                     </a>
 
                     <div class="mt-4">
-                        <label class="fs-14 fw-6 mb-2 d-block">{{ __('Order Note') }}</label>
+                        <label class="fs-14 fw-6 mb-2 d-block">{{ __('site.order-note') }}</label>
                         <textarea class="tf-field-input tf-input w-100" rows="3"
                             id="cart-note"
-                            placeholder="{{ __('Add a note to your order...') }}">{{ $cart->note }}</textarea>
+                            placeholder="{{ __('site.add-order-note') }}">{{ $cart->note }}</textarea>
                         <button class="tf-btn btn-outline radius-3 w-100 mt-2 justify-content-center" id="save-note-btn">
-                            {{ __('Save Note') }}
+                            {{ __('site.save-note') }}
                         </button>
                     </div>
                 </div>

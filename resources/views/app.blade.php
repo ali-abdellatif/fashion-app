@@ -3,6 +3,7 @@
 <html>
 <head>
 @include('site.layouts.head')
+@stack('styles')
 </head>
 
 <body class="preload-wrapper popup-loader {{ app()->getLocale() == 'ar' ? 'rtl' : '' }}">
