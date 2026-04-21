@@ -157,14 +157,14 @@
                                 <div class="swiper-slide" lazy="true">
                                     <div class="collection-item style-left hover-img">
                                         <div class="collection-inner">
-                                            <a href="{{ route('shop', $category->slug) }}" class="collection-image img-style">
+                                            <a href="{{ route('shop', ['category' => $category->slug]) }}" class="collection-image img-style">
                                                 <img class="lazyload"
                                                     data-src="{{ Storage::disk('public')->url($category->image) }}"
                                                     src="{{ Storage::disk('public')->url($category->image) }}"
                                                     alt="{{ $category->name }}" style="width: 100%; height: 420px; object-fit: cover;">
                                             </a>
                                             <div class="collection-content">
-                                                <a href="{{ route('shop', $category->slug) }}" class="tf-btn collection-title hover-icon fs-15">
+                                                <a href="{{ route('shop', ['category' => $category->slug]) }}" class="tf-btn collection-title hover-icon fs-15">
                                                     <span>{{ $category->name }}</span>
                                                     <i class="icon icon-arrow1-top-left"></i>
                                                 </a>
