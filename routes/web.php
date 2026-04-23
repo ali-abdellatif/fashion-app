@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Site\CartController;
+use App\Http\Controllers\Site\CheckoutController;
 use App\Http\Controllers\Site\WishlistController;
 use App\Http\Controllers\Site\CustomerAuthController;
 use App\Http\Controllers\Site\MainController;
@@ -31,6 +32,10 @@ Route::group(
         Route::patch('/cart/item/{item}',           [CartController::class, 'update'])->name('cart.update');
         Route::delete('/cart/item/{item}',          [CartController::class, 'remove'])->name('cart.remove');
         Route::delete('/cart',                      [CartController::class, 'clear'])->name('cart.clear');
+
+        Route::get('/checkout',                     [CheckoutController::class, 'index'])->name('checkout.index');
+        Route::post('/checkout',                    [CheckoutController::class, 'place'])->name('checkout.place');
+        Route::get('/checkout/success/{order}',     [CheckoutController::class, 'success'])->name('checkout.success');
 
         // Wishlist
         Route::get('/wishlist',                         [WishlistController::class, 'index'])->name('wishlist.index');

@@ -76,5 +76,30 @@ return [
     'order-note'                        => 'Order Note',
     'add-order-note'                    => 'Add a note to your order...',
     'save-note'                         => 'Save Note',
-    
+
+    // Checkout
+    'customer-info'                     => 'Customer Information',
+    'saved-addresses'                   => 'Saved Addresses',
+    'use-different-address'             => 'Use a different address',
+    'delivery-address'                  => 'Delivery Address',
+    'select-governorate'                => 'Select Governorate',
+    'district'                          => 'District',
+    'floor'                             => 'Floor',
+    'postal-code'                       => 'Postal Code',
+    'address-notes'                     => 'Address Notes',
+    'your-order'                        => 'Your Order',
+    'cash-on-delivery'                  => 'Cash on Delivery',
+    'place-order'                       => 'Place Order',
+
+    // Order success
+    'order-confirmed'                   => 'Order Confirmed!',
+    'order-number'                      => 'Order Number',
+    'order-date'                        => 'Order Date',
+    'thank-you-message'                 => 'Thank you for your order. We will contact you soon to confirm delivery.',
+    'order-details'                     => 'Order Details',
+    'delivery-to'                       => 'Delivery To',
+    'continue-shopping'                 => 'Continue Shopping',
+    'items-ordered'                     => 'Items Ordered',
+    'unit-price'                        => 'Unit Price',
+
 ];

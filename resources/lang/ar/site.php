@@ -76,5 +76,30 @@ return [
     'order-note'                       => 'ملاحظة الطلب',
     'add-order-note'                   => 'أضف ملاحظة إلى طلبك...',
     'save-note'                        => 'حفظ الملاحظة',
-    
+
+    // Checkout
+    'customer-info'                     => 'بيانات العميل',
+    'saved-addresses'                   => 'العناوين المحفوظة',
+    'use-different-address'             => 'استخدام عنوان مختلف',
+    'delivery-address'                  => 'عنوان التوصيل',
+    'select-governorate'                => 'اختر المحافظة',
+    'district'                          => 'الحي',
+    'floor'                             => 'الدور',
+    'postal-code'                       => 'الرمز البريدي',
+    'address-notes'                     => 'ملاحظات العنوان',
+    'your-order'                        => 'طلبك',
+    'cash-on-delivery'                  => 'الدفع عند الاستلام',
+    'place-order'                       => 'تأكيد الطلب',
+
+    // Order success
+    'order-confirmed'                   => 'تم تأكيد الطلب!',
+    'order-number'                      => 'رقم الطلب',
+    'order-date'                        => 'تاريخ الطلب',
+    'thank-you-message'                 => 'شكراً لطلبك. سنتواصل معك قريباً لتأكيد التوصيل.',
+    'order-details'                     => 'تفاصيل الطلب',
+    'delivery-to'                       => 'التوصيل إلى',
+    'continue-shopping'                 => 'متابعة التسوق',
+    'items-ordered'                     => 'المنتجات المطلوبة',
+    'unit-price'                        => 'سعر الوحدة',
+
 ];

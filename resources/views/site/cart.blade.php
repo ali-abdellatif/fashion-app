@@ -156,7 +156,7 @@
                         </span>
                     </div>
 
-                    <a href="#" class="tf-btn btn-fill animate-hover-btn radius-3 w-100 justify-content-center">
+                    <a href="{{ route('checkout.index') }}" class="tf-btn btn-fill animate-hover-btn radius-3 w-100 justify-content-center">
                         <span>{{ __('site.proceed-to-checkout') }}</span>
                     </a>
 
